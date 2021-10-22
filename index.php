@@ -9,7 +9,7 @@
 						Bienvenido al sistema de usuarios
 					</h2>
 					<p>No estás registrado aún, que esperas para ingresar y disfrutar</p>
-					<a href="#" class="waves-effect waves-light btn red">Registro</a>
+					<a href="registro" class="waves-effect waves-light btn red">Registro</a>
 				</div>
 			</div>
 			
