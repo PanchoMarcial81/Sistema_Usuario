@@ -11,5 +11,6 @@ RewriteRule ^inicio index.php
 RewriteRule ^registro register.php
 RewriteRule ^login login.php
 RewriteRule ^articulos articles.php
+RewriteRule ^perfil profile.php
 
-#RewriteRule ^verificar/(.+) verificar.php?verificar=$1
+RewriteRule ^verificar/(.+) verificar.php?verificar=$1

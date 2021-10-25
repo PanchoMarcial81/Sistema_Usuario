@@ -35,6 +35,11 @@
 										</button>
 									</div>
 								</div>	
+								<div class="col s12">
+									<div class="center pt-2">
+										<a href="<?php echo url; ?>login" class="black-text">Ya tengo una cuenta</a>
+									</div>
+								</div>
 							</div>
 						</form>
 					</div>

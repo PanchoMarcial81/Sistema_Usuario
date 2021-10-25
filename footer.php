@@ -6,7 +6,7 @@
 			</p>
 		</div>
 	</footer>
-	<script src="js/app.js"></script>
-	<script src="js/ajax.js"></script>
+	<script src="<?php echo url; ?>js/app.js"></script>
+	<script src="<?php echo url; ?>js/ajax.js"></script>
 </body>
 </html>

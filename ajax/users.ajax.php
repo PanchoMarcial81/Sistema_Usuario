@@ -81,3 +81,45 @@ if(isset($_POST['user_name']) && isset($_POST['email'])){
 		echo 'campos_vacios';
 	}
 }
+
+/*=================================================================
+VALIDANDO DATOS LOGIN
+=================================================================*/
+
+if (isset($_POST['fr_login']) && isset($_POST['user_name']) && isset($_POST['password'])) {
+
+	if ($_POST['user_name'] !== '' && $_POST['password'] !== '') {
+
+		if (!preg_match("/^[a-zA-Z0-9\\@\\.\\_]+$/", $_POST['user_name'])) {
+			echo 'user_name_invalido';
+			exit();
+		}
+		else if (!preg_match("/^[a-zA-Z0-9]+$/", $_POST['password'])) {
+			echo 'password_invalido';
+			exit();
+		}
+
+		$user = $_POST['user_name'];
+		$password = md5($_POST['password']);
+		
+		$consulta = sprintf("SELECT * FROM ud_users WHERE user_name = %s AND password = %s AND status > 0", limpiar($user, "text"), limpiar($password, "text"));
+		$result = mysqli_query($conn, $consulta);
+		$fech = mysqli_fetch_assoc($result);
+		$row_cnt = mysqli_num_rows($result);
+
+		if ($row_cnt == 1) {
+
+			$_SESSION['id'] = $fech['id'];
+			$_SESSION['username'] = $fech['user_name'];
+
+			echo "ok";
+
+		}else{
+			echo "no_existe";
+		}
+		mysqli_free_result($result);
+
+	}else{
+		echo 'campos_vacios';
+	}
+}

@@ -66,4 +66,53 @@ function register(){
 	ajax.send("user_name=" + rg_username + "& email=" + rg_email + "& password=" + rg_pass1);
 }
 
+/*=============================================
+VALIDANDO FORMULARIO LOGIN
+=============================================*/
+document.querySelector('.login_ajax').addEventListener('click', function(){
+	var lg_username = document.querySelector('#lg_username').value;
+	var lg_password = document.querySelector('#lg_password').value;
+	var fr_login = "ok";
+	
+	expresion = /^[a-zA-Z0-9\\@\\.\\_]+$/;
+
+	if (lg_username == '') {
+		M.toast({ html: 'El campo usuario no puede estar vacio' })
+		return;
+	} else if (!expresion.exec(lg_username)) {
+		M.toast({ html: 'En el campo Usuario, no se permiten carácteres especiales ni espacios' })
+		return;
+	}
+	if (lg_password == '' ) {
+		M.toast({ html: 'El campo contraseña no puede estar vacio' })
+		return;
+	} else if (!expresion.exec(lg_password)) {
+		M.toast({ html: 'En el campo Contraseña, no se permiten carácteres especiales ni espacios' })
+		return;
+	}
+	
+	var ajax = new XMLHttpRequest();
+	var URL = 'ajax/users.ajax.php';
+	var method = 'POST';
+	ajax.onreadystatechange = function () {
+		if (ajax.readyState == 4 && ajax.status == 200) {
+			var response = ajax.responseText;
+			if (response == "user_name_invalido") {
+				M.toast({ html: 'El usuario o email enviado no es válido' })
+			} else if (response == "password_invalido") {
+				M.toast({ html: 'El password enviado no es válido' })
+			} else if (response == "campos_vacios") {
+				M.toast({ html: 'Algunos de los campos enviados estan vacios' })
+			} else if (response == "ok") {
+				window.location = 'perfil';
+			} else if (response == "no_existe") {
+				M.toast({ html: 'Usuario y/o contraseña incorrectos' })
+			} 
+		}
+	};
+	ajax.open(method, URL, true);
+	ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	ajax.send("user_name=" + lg_username + "& password=" + lg_password + "& fr_login=" + fr_login);
+})
+
 
