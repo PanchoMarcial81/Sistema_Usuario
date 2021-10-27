@@ -101,12 +101,14 @@ if (isset($_POST['fr_login']) && isset($_POST['user_name']) && isset($_POST['pas
 
 		$user = $_POST['user_name'];
 		$password = md5($_POST['password']);
-		
-		$consulta = sprintf("SELECT * FROM ud_users WHERE user_name = %s AND password = %s AND status > 0", limpiar($user, "text"), limpiar($password, "text"));
+
+		$consulta = sprintf("SELECT * FROM ud_users WHERE user_name = %s AND password = %s AND status > 0", 
+							limpiar($user, "text"), 
+							limpiar($password, "text"));
 		$result = mysqli_query($conn, $consulta);
 		$fech = mysqli_fetch_assoc($result);
 		$row_cnt = mysqli_num_rows($result);
-
+	
 		if ($row_cnt == 1) {
 
 			$_SESSION['id'] = $fech['id'];

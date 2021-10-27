@@ -1,4 +1,4 @@
-<?php include 'ajax/function.php';  ?>
+<?php require_once 'db_conexion.php'; ?>
 
 <!DOCTYPE html>
 <html lang="es">

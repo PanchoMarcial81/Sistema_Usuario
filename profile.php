@@ -1,4 +1,8 @@
-<?php include ('header.php'); ?>
+<?php include ('header.php');
+
+$consulta = sprintf("SELECT * FROM ud_users WHERE id = %s",
+					link)
+?>
 
 	<!-- PROFILE -->
 	<main role="main" class="user-profile">

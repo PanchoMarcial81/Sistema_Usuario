@@ -1,5 +1,7 @@
 <?php
 
+if (!isset($_SESSION)) @session_start();
+
 $conn = new mysqli("localhost", "root", "", "sistema_usuarios");
 
 if ($conn->connect_errno) {
