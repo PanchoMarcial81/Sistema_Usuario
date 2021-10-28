@@ -102,7 +102,9 @@ if (isset($_POST['fr_login']) && isset($_POST['user_name']) && isset($_POST['pas
 		$user = $_POST['user_name'];
 		$password = md5($_POST['password']);
 
-		$consulta = sprintf("SELECT * FROM ud_users WHERE user_name = %s AND password = %s AND status > 0", 
+		$consulta = sprintf("SELECT * FROM ud_users WHERE user_name = %s AND password = %s AND status > 0 OR email = %s AND password = %s AND status > 0", 
+							limpiar($user, "text"), 
+							limpiar($password, "text"),
 							limpiar($user, "text"), 
 							limpiar($password, "text"));
 		$result = mysqli_query($conn, $consulta);

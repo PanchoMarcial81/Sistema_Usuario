@@ -1,27 +1,39 @@
 <?php include ('header.php');
 
-$consulta = sprintf("SELECT * FROM ud_users WHERE id = %s",
-					link)
-?>
+$iduser = $_SESSION['id'];
 
+$consulta = sprintf("SELECT * FROM ud_users WHERE id = %s",
+					limpiar($iduser, "int"));
+$result = mysqli_query($conn, $consulta);
+$fech = mysqli_fetch_assoc($result);
+
+?>
 	<!-- PROFILE -->
 	<main role="main" class="user-profile">
 		<div class="parallax-container profile">
 	      <div class="parallax">
-	      	<img src="images/hero.jpg">
+			<?php if ($fech['banner'] == ''): ?>
+				<img src="images/hero.jpg">
+			<?php else: ?>
+				<img src="<?php echo url.'images/banners/'. $fech['banner']; ?>">
+			<?php endif; ?>
 	      </div>
 	      <div class="content-parallx center">
       		<figure>
-      			<img src="images/person.png" width="100" class="circle-img" alt="">
+				<?php if ($fech['picture'] == ''): ?>
+					<img src="images/person.png" width="100" class="circle-img" alt="">
+				<?php else: ?>
+					<img src="<?php echo url.'images/users/'. $fech['picture']; ?>" width="100" class="circle-img" alt="">
+				<?php endif; ?>
       		</figure>
-      		<h2 class="name-user">Pancho Marcial</h2>
+      		<h2 class="name-user"><?php echo $fech['user_name'] ?></h2>
       	  </div>
 	    </div>
 	    <div class="container">
 	    	<article class="center">
 	    		<h3>Sobre mi</h3>
 	    		<figcaption>
-	    			Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet doloribus, alias, nihil id maxime cum deleniti quasi, sapiente illo rerum ducimus aperiam quisquam aliquam vero? Dolorum, veritatis incidunt maxime ratione.
+	    			<?php echo $fech['description'] ?>
 	    		</figcaption>
 	    	</article>
 	    	<div class="articles-post-user-profile">
@@ -125,4 +137,6 @@ $consulta = sprintf("SELECT * FROM ud_users WHERE id = %s",
 	</main>
 
 
-<?php include ('footer.php'); ?>
+<?php include ('footer.php'); 
+mysqli_free_result($result);
+?>

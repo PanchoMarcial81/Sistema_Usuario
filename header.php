@@ -36,8 +36,24 @@
 			      </a>
 			      <a href="#" data-target="nav-mobil" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
 			      <ul class="right hide-on-med-and-down">
-			        <li><a href="<?php echo url; ?>articulos">Articulos</a></li>
-			        <li><a href="<?php echo url; ?>registro" class="waves-effect waves-light btn red">Registro</a></li>
+			        <li>
+						<a href="<?php echo url; ?>articulos">Articulos</a>
+					</li>
+					<?php if (isset($_SESSION['id'])): ?>
+			        	<li>
+							<a href="<?php echo url; ?>perfil" class="waves-effect waves-light btn green darken-1"><?php echo $_SESSION['username']; ?></a>
+						</li>
+						<li>
+							<a href="<?php echo url; ?>salir" class="waves-effect waves-light btn red darken-1">X</a>
+						</li>
+						<?php else: ?>
+						<li>
+							<a href="<?php echo url; ?>login">Ingresar</a>
+						</li>
+						<li>
+							<a href="<?php echo url; ?>registro" class="waves-effect waves-light btn red darken-1">Registro</a>
+						</li>
+					<?php endif; ?>
 			      </ul>
 			    </div>
 			</div>
@@ -45,6 +61,20 @@
 
 	    <ul class="sidenav" id="nav-mobil">
 		    <li><a href="<?php echo url; ?>articulos">Articulos</a></li>
-	        <li><a href="<?php echo url; ?>registro" class="waves-effect waves-light btn red">Registro</a></li>
+	        <?php if (isset($_SESSION['id'])): ?>
+				<li>
+					<a href="<?php echo url; ?>perfil" class="waves-effect waves-light btn green darken-1"><?php echo $_SESSION['username']; ?></a>
+				</li>
+				<li>
+					<a href="<?php echo url; ?>salir" class="waves-effect waves-light btn red darken-1">X</a>
+				</li>
+				<?php else: ?>
+				<li>
+					<a href="<?php echo url; ?>login">Ingresar</a>
+				</li>
+				<li>
+					<a href="<?php echo url; ?>registro" class="waves-effect waves-light btn red darken-1">Registro</a>
+				</li>
+			<?php endif; ?>
 	  	</ul>
 	</header>
