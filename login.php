@@ -11,13 +11,13 @@
 								<div class="input-field col s12">
 						          <i class="material-icons prefix">account_circle</i>
 						          <input type="text" id="lg_username" class="validate">
-						          <label for="icon_prefix">Ingresa tu Usuario o Email</label>
+						          <label for="lg_username">Ingresa tu Usuario o Email</label>
 								</div>
 								
 								<div class="input-field col s12">
 						          <i class="material-icons prefix">lock_outline</i>
 						          <input type="password" id="lg_password" class="validate">
-						          <label for="icon_prefix">Contraseña</label>
+						          <label for="lg_password">Contraseña</label>
 								</div>
 								
 								<div class="col s12">

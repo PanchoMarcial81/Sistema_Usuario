@@ -3,7 +3,7 @@
 	<!-- HERO -->
 	<section class="section-hero">
 		<div class="hero">
-			<div class="container">
+			<div class="container center">
 				<div class="container-form">
 					<div class="card">
 						<form onsubmit="return false" id="form_r">
@@ -44,8 +44,7 @@
 						</form>
 					</div>
 				</div>
-			</div>
-			
+			</div>	
 		</div>
 	</section>
 

@@ -2,15 +2,17 @@
 // INCLUIMOS LA CONEXION A LA BD
 require_once '../db_conexion.php';
 
-if(isset($_POST['user_name']) && isset($_POST['email'])){
+/*=================================================================
+CREAR USUARIO
+=================================================================*/
+if(isset($_POST['rg_username']) && isset($_POST['rg_email'])){
 	
-
-	if ($_POST['email'] !== '' && $_POST['user_name'] !== '' && $_POST['password'] !== '') {
+	if ($_POST['rg_email'] !== '' && $_POST['rg_username'] !== '' && $_POST['password'] !== '') {
 		if (!preg_match("/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/", $_POST['email'])) {
 			echo 'email_invalido';
 			exit();
 		}
-		else if (!preg_match("/^[a-zA-Z0-9]+$/", $_POST['user_name'])) {
+		else if (!preg_match("/^[a-zA-Z0-9]+$/", $_POST['rg_username'])) {
 			echo 'user_name_invalido';
 			exit();
 		}
@@ -19,14 +21,14 @@ if(isset($_POST['user_name']) && isset($_POST['email'])){
 			exit();
 		}
 
-		$user = $_POST['user_name'];
-		$email = $_POST['email'];
+		$user = $_POST['rg_username'];
+		$email = $_POST['rg_email'];
 		$password = md5($_POST['password']);
 		$description = '';
 		$picture = '';
 		$banner = '';
 		$status = 0;
-		$token = md5($_POST['email']);
+		$token = md5($_POST['rg_email']);
 
 		$consulta = sprintf("SELECT * FROM ud_users WHERE user_name = %s", limpiar($user, "text"));
 		$result = mysqli_query($conn, $consulta);
@@ -85,22 +87,21 @@ if(isset($_POST['user_name']) && isset($_POST['email'])){
 /*=================================================================
 VALIDANDO DATOS LOGIN
 =================================================================*/
+if (isset($_POST['fr_login']) && isset($_POST['lg_username']) && isset($_POST['lg_password'])) {
 
-if (isset($_POST['fr_login']) && isset($_POST['user_name']) && isset($_POST['password'])) {
+	if ($_POST['lg_username'] !== '' && $_POST['lg_password'] !== '') {
 
-	if ($_POST['user_name'] !== '' && $_POST['password'] !== '') {
-
-		if (!preg_match("/^[a-zA-Z0-9\\@\\.\\_]+$/", $_POST['user_name'])) {
+		if (!preg_match("/^[a-zA-Z0-9\\@\\.\\_]+$/", $_POST['lg_username'])) {
 			echo 'user_name_invalido';
 			exit();
 		}
-		else if (!preg_match("/^[a-zA-Z0-9]+$/", $_POST['password'])) {
+		else if (!preg_match("/^[a-zA-Z0-9]+$/", $_POST['lg_password'])) {
 			echo 'password_invalido';
 			exit();
 		}
 
-		$user = $_POST['user_name'];
-		$password = md5($_POST['password']);
+		$user = $_POST['lg_username'];
+		$password = md5($_POST['lg_password']);
 
 		$consulta = sprintf("SELECT * FROM ud_users WHERE user_name = %s AND password = %s AND status > 0 OR email = %s AND password = %s AND status > 0", 
 							limpiar($user, "text"), 
@@ -125,5 +126,64 @@ if (isset($_POST['fr_login']) && isset($_POST['user_name']) && isset($_POST['pas
 
 	}else{
 		echo 'campos_vacios';
+	}
+}
+
+/*=================================================================
+VALIDANDO DATOS ACTUALIZACION DE PERFIL
+=================================================================*/
+if (isset($_POST['up_username']) && isset($_POST['up_email']) && isset($_POST['description'])) {
+
+	if ($_POST['up_username'] !== '' && $_POST['up_email'] !== '' && $_POST['description'] !== '') {
+
+		if (!preg_match('/^([a-zA-Z0-9])+$/', $_POST['up_username'])) {
+			echo 'user_name_invalido';
+			exit();
+		}
+		else if (!preg_match('/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/', $_POST['up_email'])) {
+			echo 'email_invalido';
+			exit();
+		}
+		else if (!preg_match('/^[,\\@\\?\\$\\.\\´\\\\¨\\¡\\!\\"\\#a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_ ]+$/', $_POST['description'])) {
+			echo 'description_invalido';
+			exit();
+		}
+
+		$iduser = base64_decode($_POST['iduser']);
+		$user = $_POST['up_username'];
+		$email = $_POST['up_email'];
+		$description = $_POST['description'];
+
+		$stmt = $conn->prepare("UPDATE ud_users SET user_name = ?, email = ?, description = ? WHERE id = ?");
+		$stmt->bind_param("sssi", $user, $email, $description, $iduser);
+			
+		if ($stmt->execute()) {
+
+			echo "ok";
+
+		}else{
+			echo "error";
+		}
+
+		$stmt->close();		
+
+	}else{
+		echo 'campos_vacios';
+	}
+}
+
+/*=================================================================
+SUBIENDO IMAGEN DE PERFIL
+=================================================================*/
+if (isset($_FILES['upPicture'])) {
+	if ($_FILES['upPicture']['type'] == 'image/jpg' || $_FILES['upPicture']['type'] == 'image/jpeg' || $_FILES['upPicture']['type'] == 'image/png') {
+		var_dump($_FILES['upPicture']);
+
+		$extent = explode('/', $_FILES['upPicture']['type']);
+		echo '<pre>'; print_r($extent);	echo '</pre>';
+
+		$name_picture = base64_decode($_POST['userid']).$extent[1];
+	}else{
+		echo "file_aceptado";
 	}
 }

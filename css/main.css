@@ -24,6 +24,8 @@ body{
 
 .pt-2{padding-top: 20px !important;}
 
+.hidde{display: none;}
+
 /*================================================
 SCALAR LAS IMAGENES EN CARS
 ================================================*/
@@ -45,7 +47,7 @@ SCALAR LAS IMAGENES EN CARS
 HEADER
 ================================================*/
 section.section-hero{
-	margin-top: -36px;
+	margin-top: -50px;
 }
 
 header nav a.brand-logo img{
@@ -65,7 +67,7 @@ div.hero{
 
 .hero .container-hero{
 	position: absolute;
-	width:  50%;
+	width: 50%;
 	top: 30%;
 }
 
@@ -91,7 +93,7 @@ div.hero{
 PAGINAS DE REGISTRO Y LOGIN
 ================================================*/
 .container-form{
-	padding: 150px;
+	padding-top: 150px;
 }
 
 .container-form form input[type="submit"]{
@@ -100,7 +102,7 @@ PAGINAS DE REGISTRO Y LOGIN
 
 .container-form .card{
 	padding: 20px 15px;
-	width: 75%;
+	width: 60%;
 	margin: 0 auto;
 	/*border-radius: 2%;*/
 }

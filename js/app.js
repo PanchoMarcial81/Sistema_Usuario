@@ -22,10 +22,12 @@ document.addEventListener('DOMContentLoaded', function(){
 	var elemsr = document.querySelectorAll('.slider');
 	var instances = M.Slider.init(elemsr);
 	//Parallax
-	var elemsp = document.querySelectorAll('.parallax');
-    var instances = M.Parallax.init(elemsp);
+	var paralax_elemens = document.querySelectorAll('.parallax');
+	var instances = M.Parallax.init(paralax_elemens);
     //Toast
-    var toastElement = document.querySelector('.toast');
-	var toastInstance = M.Toast.getInstance(toastElement);
-	toastInstance.dismiss();
+    // var toastElement = document.querySelector('.toast');
+	// var toastInstance = M.Toast.getInstance(toastElement);
+	// toastInstance.dismiss();
+	var elemsB = document.querySelectorAll('.fixed-action-btn');
+	var instances = M.FloatingActionButton.init(elemsB);
 });
