@@ -27,15 +27,16 @@ $fech = mysqli_fetch_assoc($result);
 			<a href="javascript:void(0)" onclick="$('#upPicture').click();">
 				<figure>
 					<?php if ($fech['picture'] == ''): ?>
-						<img src="images/person.png" width="100" class="circle-img" alt="">
+						<img src="images/person.png" width="100" class="circle" alt="" id="refresp">
 					<?php else: ?>
-						<img src="<?php echo url.'images/users/'. $fech['picture']; ?>" width="100" class="circle-img" alt="">
+						<img src="<?php echo url.'images/users/'. $fech['picture']; ?>" width="100" height="100" class="circle" alt="" id="refresp">
 					<?php endif; ?>
 				</figure>
 			</a>
 			<form onsubmit="return false" id="frmPicture" class="hidde">
 				<input type="file" id="upPicture" name="upPicture" onchange="upload_picture();">
 				<input type="hidden" name="userid" value="<?php echo base64_encode($fech['id']); ?>">
+				<input type="hidden" name="username" value="<?php echo $fech['user_name']; ?>">
 			</form>
       		<h2 class="name-user"><?php echo $fech['user_name']; ?></h2>
       	  </div>

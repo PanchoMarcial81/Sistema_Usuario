@@ -186,7 +186,9 @@ function upload_picture() {
 		contentType: false,
 		processData: false,
 		success: function(response) {
-			
+			M.toast({html: 'Foto actualizada'});
+			$('#frmPicture')[0].reset();
+			$('#refresp').attr('src', response);
 		}
 	});
 }

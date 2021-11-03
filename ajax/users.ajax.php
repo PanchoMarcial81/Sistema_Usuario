@@ -177,12 +177,24 @@ SUBIENDO IMAGEN DE PERFIL
 =================================================================*/
 if (isset($_FILES['upPicture'])) {
 	if ($_FILES['upPicture']['type'] == 'image/jpg' || $_FILES['upPicture']['type'] == 'image/jpeg' || $_FILES['upPicture']['type'] == 'image/png') {
-		var_dump($_FILES['upPicture']);
-
+		
+		$iduser = trim(base64_decode($_POST['userid']));
 		$extent = explode('/', $_FILES['upPicture']['type']);
-		echo '<pre>'; print_r($extent);	echo '</pre>';
+		$name_picture = $iduser.'_'.$_POST['username'].'.'.$extent[1];
 
-		$name_picture = base64_decode($_POST['userid']).$extent[1];
+		move_uploaded_file($_FILES['upPicture']['tmp_name'], '../images/users/'. $name_picture);
+
+		$stmt = $conn->prepare("UPDATE ud_users SET picture = ? WHERE id = ?");
+		$stmt->bind_param("si", $name_picture, $iduser);
+
+		if ($stmt->execute()) {
+			echo url."images/users/".$name_picture;
+		}else{
+			echo "error";
+		}
+
+		$stmt->close();
+
 	}else{
 		echo "file_aceptado";
 	}
