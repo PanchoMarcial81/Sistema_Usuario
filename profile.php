@@ -18,9 +18,9 @@ $fech = mysqli_fetch_assoc($result);
 		<div class="parallax-container profile">
 	      <div class="parallax">
 			<?php if ($fech['banner'] == ''): ?>
-				<img src="images/hero.jpg">
+				<img src="images/hero.jpg" class="refresB">
 			<?php else: ?>
-				<img src="<?php echo url.'images/banners/'. $fech['banner']; ?>">
+				<img src="<?php echo url.'images/banners/'. $fech['banner']; ?>" class="refresB">
 			<?php endif; ?>
 	      </div>
 	      <div class="content-parallx center">
@@ -39,6 +39,14 @@ $fech = mysqli_fetch_assoc($result);
 				<input type="hidden" name="username" value="<?php echo $fech['user_name']; ?>">
 			</form>
       		<h2 class="name-user"><?php echo $fech['user_name']; ?></h2>
+			<a href="javascript:void(0)" class="btn-banner" onclick="$('#upBanner').click();">
+				<span class="material-icons white-text">image</span>
+			</a>
+			<form onsubmit="return false" id="frmBanner" class="hidde">
+				<input type="file" id="upBanner" name="upBanner" onchange="upload_banner();">
+				<input type="hidden" name="userid" value="<?php echo base64_encode($fech['id']); ?>">
+				<input type="hidden" name="username" value="<?php echo $fech['user_name']; ?>">
+			</form>
       	  </div>
 	    </div>
 	    <div class="container">
@@ -200,11 +208,44 @@ $fech = mysqli_fetch_assoc($result);
 	<!-- Modal POSTS -->
 	<div id="newPost" class="modal">
 		<div class="modal-content">
-		<h4>Agregando Post</h4>
-		<p>A bunch of text</p>
-		</div>
-		<div class="modal-footer">
-		<a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+			<div class="center">
+				<h4>Agregando un nuevo articulo</h4>
+				<form onsubmit="return false" id="newArticle">
+					<div class="row">
+						<div class="input-field col s12">
+							<i class="material-icons prefix">mode_edit</i>
+							<input type="text" id="title" name="title" class="validate" >
+							<label for="title">Titulo</label>
+						</div>
+						<div class="input-field col s12">
+							<i class="material-icons prefix">mode_edit</i>
+							<textarea id="description" name="description" class="materialize-textarea"></textarea>
+							<label for="description">Descripcion</label>
+						</div>
+						<div class="col s12">
+							<div class="file-field input-field">
+								<div class="btn">
+									<span>File</span>
+									<input type="file" id="images_files" name="images_files">
+								</div>
+								<div class="file-path-wrapper">
+									<input class="file-path validate" type="text">
+								</div>
+							</div>
+						</div>
+						<input type="hidden" id="userid" value="<?php echo base64_encode($fech['id']); ?>">
+
+						<div class="col s12">
+							<div class="center">
+								<button type="submit" class="waves-effect wares-light btn blue" onclick="add_post();">
+									Publicar
+								</button>
+							</div>
+						</div>	
+					</div>
+					
+				</form>
+			</div>
 		</div>
 	</div>
 

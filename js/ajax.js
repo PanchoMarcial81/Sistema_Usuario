@@ -192,3 +192,65 @@ function upload_picture() {
 		}
 	});
 }
+
+/*=============================================
+SUBIENDO BANNER DE PERFIL
+=============================================*/
+function upload_banner() {
+	var frmP = new FormData($('#frmBanner')[0]);
+	$.ajax({
+		url: 'ajax/users.ajax.php',
+		type: 'POST',
+		data: frmP,
+		contentType: false,
+		processData: false,
+		success: function (response) {
+			M.toast({ html: 'Banner actualizado' });
+			$('#frmBanner')[0].reset();
+			$('.refresB').attr('src', response);
+		}
+	});
+}
+
+/*=============================================
+VALIDANDO FORM DE ARTICULO
+=============================================*/
+function add_post() {
+	var title = document.querySelector('#title').value;
+	var description = document.querySelector('#description').value;
+	
+	exp = /^[,\\@\\?\\$\\.\\'\\¨\\¡\\!\\"\\#a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_ ]+$/;
+
+	if (title == '') {
+		M.toast({ html: 'El campo titulo no puede estar vacio' })
+		return;
+	} else if (!exp.exec(title)) {
+		M.toast({ html: 'En el campo titluto, no se permiten algunos carácteres especiales' })
+		return;
+	}
+	if (description == '') {
+		M.toast({ html: 'El campo descripcion no puede estar vacio' })
+		return;
+	} else if (!exp.exec(description)) {
+		M.toast({ html: 'En el campo descripcion, no se permiten algunos carácteres especiales' })
+		return;
+	}
+
+	var formD = new FormData($('#newArticle')[0]);
+
+	$.ajax({
+		url: 'ajax/articles.ajax.php',
+		type: 'POST',
+		data: formD,
+		contentType: false,
+		processData: false,
+		success: function(response) {
+			if (response == "ok") {
+				M.toast({ html: 'Articulo agregado correctamente' });
+				$('#newArticle')[0].reset();
+			}
+			
+		}
+	});
+
+}

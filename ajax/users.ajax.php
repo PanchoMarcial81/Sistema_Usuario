@@ -196,6 +196,35 @@ if (isset($_FILES['upPicture'])) {
 		$stmt->close();
 
 	}else{
-		echo "file_aceptado";
+		echo "file_no_aceptado";
+	}
+}
+
+/*=================================================================
+SUBIENDO BANNER DE PERFIL
+=================================================================*/
+if (isset($_FILES['upBanner'])) {
+
+	if ($_FILES['upBanner']['type'] == 'image/jpg' || $_FILES['upBanner']['type'] == 'image/jpeg' || $_FILES['upBanner']['type'] == 'image/png') {
+		
+		$iduser = trim(base64_decode($_POST['userid']));
+		$extent = explode('/', $_FILES['upBanner']['type']);
+		$name_banner = $iduser.'_'.$_POST['username'].'.'.$extent[1];
+
+		move_uploaded_file($_FILES['upBanner']['tmp_name'], '../images/banners/'. $name_banner);
+
+		$stmt = $conn->prepare("UPDATE ud_users SET banner = ? WHERE id = ?");
+		$stmt->bind_param("si", $name_banner, $iduser);
+
+		if ($stmt->execute()) {
+			echo url."images/banners/".$name_banner;
+		}else{
+			echo "error";
+		}
+
+		$stmt->close();
+
+	}else{
+		echo "file_no_aceptado";
 	}
 }
