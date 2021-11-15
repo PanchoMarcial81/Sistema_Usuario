@@ -33,3 +33,35 @@ function limpiar ($theValue, $theType, $theDefinedValue = "", $theNotDefinedValu
 }
 
 define('url', 'http://localhost/Sistema_Usuarios/');
+
+/*=============================================
+FORMATEAR URL
+=============================================*/
+function limpiar_url($url) {
+  // Tranformamos todo a minusculas
+  $url = strtolower($url);
+  //Rememplazamos caracteres especiales latinos
+  $find = array('á', 'é', 'í', 'ó', 'ú', 'ñ');
+  $repl = array('a', 'e', 'i', 'o', 'u', 'n');
+  $url = str_replace ($find, $repl, $url);
+  // Añadimos los guiones
+  $find = array(' ', '&', '\r\n', '\n', '+'); 
+  $url = str_replace ($find, '-', $url);
+  // Eliminamos y Reemplazamos demás caracteres especiales
+  $find = array('/[^a-z0-9\-<>]/', '/[\-]+/', '/<[^>]*>/');
+  $repl = array('', '-', '');
+  $url = preg_replace ($find, $repl, $url);
+  
+  return $url;
+}
+
+/*=============================================
+MOSTRAR ARTICULOS
+=============================================*/
+function all_articles($limit){
+	global $conn;
+	$stmt = $conn->prepare("SELECT * FROM ud_articles");
+	$stmt->execute();
+	return $stmt->get_result();
+	$stmt->close();
+}

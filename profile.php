@@ -233,7 +233,7 @@ $fech = mysqli_fetch_assoc($result);
 								</div>
 							</div>
 						</div>
-						<input type="hidden" id="userid" value="<?php echo base64_encode($fech['id']); ?>">
+						<input type="hidden" id="userid" name="userid" value="<?php echo base64_encode($fech['id']); ?>">
 
 						<div class="col s12">
 							<div class="center">
