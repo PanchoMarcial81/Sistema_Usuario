@@ -213,6 +213,14 @@ function upload_banner() {
 }
 
 /*=============================================
+PAGINACION
+=============================================*/
+$('.show_cascade').on('click', function(){
+	console.log('hola')
+	M.toast({ html: 'Funcionando' })
+})
+
+/*=============================================
 VALIDANDO FORM DE ARTICULO
 =============================================*/
 function add_post() {
@@ -254,3 +262,4 @@ function add_post() {
 	});
 
 }
+

@@ -39,7 +39,7 @@ if (isset($_POST['title']) && isset($_POST['description'])) {
         $comments = 0;
 
         //INSERTANDO DATOS
-        $stmt = $conn->prepare("INSERT INTO ud_articles(title, description, images, url, ahutor, visitors, comments)  VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO ud_articles(title, description_ar, images, url, ahutor, visitors, comments)  VALUES (?, ?, ?, ?, ?, ?, ?)");
         // Ligar parametros para marcadores
         $stmt->bind_param("ssssiii", $title, $description, $name_file, $url, $ahutor, $visitors, $comments);
         

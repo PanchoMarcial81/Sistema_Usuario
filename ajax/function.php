@@ -60,7 +60,7 @@ MOSTRAR ARTICULOS
 =============================================*/
 function all_articles($limit){
 	global $conn;
-	$stmt = $conn->prepare("SELECT * FROM ud_articles");
+	$stmt = $conn->prepare("SELECT * FROM ud_articles JOIN ud_users ON ud_users.id = ud_articles.ahutor ORDER BY ud_articles.id DESC LIMIT $limit");
 	$stmt->execute();
 	return $stmt->get_result();
 	$stmt->close();
