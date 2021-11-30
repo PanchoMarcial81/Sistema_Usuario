@@ -13,7 +13,7 @@ $items = all_articles($item)
 					<div class="col s12 m4">
 	    				<div class="card">
 				        <div class="card-image scalar">
-				        	<a href="#">
+				        	<a href="#" class="modal-trigger" data-target="open_modal" onclick="open_modal_item('<?php echo $value['url']; ?>');">
 							<?php if ($value['images'] != ''): ?>
 				          		<img src="<?php echo url.'images/articles/'.$value['images']; ?>">		
 							<?php else: ?>		        		
@@ -32,8 +32,8 @@ $items = all_articles($item)
 								<?php endif; ?>	
 					        	</a>
 				        	</div>
-				        	<a href="#" >
-				          	<span class="card-title"><?php echo $value['title']; ?></span>
+				        	<a href="#!" >
+				          	<span class="card-title modal-trigger" data-target="open_modal" onclick="open_modal_item('<?php echo $value['url']; ?>');"><?php echo $value['title']; ?></span>
 				          </a>
 				          <p><?php echo substr($value['description_ar'],0,120); ?></p>
 				          <div class="card-footer">
@@ -49,8 +49,15 @@ $items = all_articles($item)
 	    			</div>
 				<?php endforeach; ?>	    			
 	    		</div><!-- End row -->
+				<div class="center">
+					<div class="progress progress_paginate" style="display: none;">
+						<div class="indeterminate">
+
+						</div>
+					</div>
+				</div>
 	    		<div class="center paginate" cargar="cascade_page">
-	    			<a href="javascript:void(0)" class="waves-effect waves-light btn blue show_cascade">
+				<a href="javascript:void(0)"  class="waves-effect waves-light btn blue show_cascade">
 	    				Cargar más
 	    			</a>
 	    		</div>
@@ -58,4 +65,10 @@ $items = all_articles($item)
 	    </div><!-- End container -->
 	</main>
 
+	<!-- Modal Structure -->
+	<div id="open_modal" class="modal">
+		<div class="modal-content res_modal">
+			
+		</div>
+	</div>
 <?php include ('footer.php'); ?>

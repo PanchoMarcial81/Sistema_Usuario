@@ -54,3 +54,24 @@ if (isset($_POST['title']) && isset($_POST['description'])) {
     }
     
 }
+
+/*=============================================
+PAGINACION
+=============================================*/
+if (isset($_POST['cascada_page'])) {
+    $_SESSION['page'] += 6;
+    $indice = $_SESSION['page'];
+    $select = "SELECT * FROM ud_articles JOIN ud_users ON ud_users.id = ud_articles.ahutor ORDER BY ud_articles.id DESC LIMIT $indice, 6";
+    $consulta = mysqli_query($conn, $select);
+    $res_dates = mysqli_fetch_all($consulta);
+    $count_dates = mysqli_num_rows($consulta);
+
+    if ($count_dates != 0) {
+        echo json_encode($res_dates);
+    }else{
+        $error = array('error'=> 'error');
+        echo json_encode($error);
+    }
+
+    mysqli_free_result($consulta);
+}

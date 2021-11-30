@@ -10,6 +10,7 @@ Globals
 	/* Color */
 	--white:#ffffff;
 	--black:#000000;
+
 }
 
 body{
@@ -188,6 +189,7 @@ body{
 /*=============================================
 SCALAR LAS IMAGENES EN CARDS
 =============================================*/
+
 .scalar{
     position: relative;
     overflow: hidden;
@@ -201,6 +203,7 @@ SCALAR LAS IMAGENES EN CARDS
 .scalar:hover a img{
     -webkit-transform: scale(1.1);
 }
+
 
 /*=============================================
 HEADER
@@ -229,6 +232,7 @@ header nav ul li.notificatios_li ul#notificacions_open {
 /*=============================================
 HERO
 =============================================*/
+
 section.section-hero{
 	margin-top: -50px;
 }
@@ -267,6 +271,7 @@ div.hero{
 /*=============================================
 PAGINAS DE REGISTRO Y LOGIN
 =============================================*/
+
 .container-form{
 	padding-top: 150px;
 }
@@ -290,6 +295,7 @@ PAGINAS DE REGISTRO Y LOGIN
 /*=============================================
 PAGINAS PERFIL DE USUSAREIO
 =============================================*/
+
 main.user-profile .content-parallx{
 	margin-top: 100px;
 }
@@ -380,10 +386,10 @@ a.btn-banner {
  a.btn-banner span{
  	font-size: 35px;
  }
-
 /*=============================================
 FOOTER
 =============================================*/
+
 footer{
 	padding: 15px 0;
 }
@@ -393,9 +399,11 @@ footer p.copy{
 	margin: 0;
 }
 
+
 /*=============================================
 PAGE ITEM
 =============================================*/
+
 .content-ahutor .ahutor-flex{
 	display: flex;
 	flex-direction: row;
@@ -432,6 +440,7 @@ PAGE ITEM
 /*=============================================
 PAGE ITEM COMMENTS
 =============================================*/
+
 .content-commnets .ahutor-flex{
 	display: flex;
 	flex-direction: row;

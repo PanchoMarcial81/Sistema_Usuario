@@ -128,7 +128,7 @@ function update_user() {
 /*=============================================
 VALIDANDO FORMULARIO LOGIN
 =============================================*/
-document.querySelector('.login_ajax').addEventListener('click', function () {
+$('.login_ajax').on('click', function () {
 	var lg_username = document.querySelector('#lg_username').value;
 	var lg_password = document.querySelector('#lg_password').value;
 	var fr_login = "ok";
@@ -215,10 +215,89 @@ function upload_banner() {
 /*=============================================
 PAGINACION
 =============================================*/
+
 $('.show_cascade').on('click', function(){
-	console.log('hola')
-	M.toast({ html: 'Funcionando' })
-})
+
+	let value =$('.paginate').attr('cargar');
+	$.ajax({
+		url: 'ajax/articles.ajax.php',
+		type: 'POST',
+		data: "cascada_page="+value,
+		cache: false,
+		processData: false,
+		dataType: "json",
+		beforeSend: function(){
+			$(".progress_paginate").show();
+		},
+		success: function(data){
+			if (data['error'] == 'error') {
+				$(".progress_paginate").fadeOut(600);
+				$(".show_cascade").fadeOut(600);
+				M.toast({ html: 'No se encontraron mas articulos' });
+			}else{
+				$(".progress_paginate").slideUp(600);
+
+				data.forEach(functionForEach);
+
+				function functionForEach(item, index){
+					//console.log("item", item);
+					var titulo = item[1],
+						descripcion = item[2].substr(0, 120),
+						imagen = item[3],
+						ruta = item[4],
+						visitas = item[6],
+						comentarios = item[7],
+						picture = item[14],
+						usuario = item[10];
+
+					if (imagen != '') {
+						var imagen = "images/articles/" + item[3];
+					}else{
+						var imagen = "images/hero.jpg";
+					}
+
+					if (picture != '') {
+						var picture = "images/users/" + item[14];
+					}else{
+						var picture = "images/person.png";
+					}
+					$('#cascade_articles .row').append(`
+					<div class="col s12 m4">
+	    				<div class="card">
+				        <div class="card-image scalar">
+				        	<a href="!#" class="modal-trigger" data-target="open_modal" onclick="open_modal_item('${ruta}');">
+				          		<img src="${imagen}">
+				        	</a>
+				        </div>
+				        <div class="card-content">
+				        	<div class="autor right">
+				        		<a href="#" class="circle">
+									<img src="${picture}" width="60" class="circle" alt="">
+					        	</a>
+				        	</div>
+				        	<a href="!#" >
+				          	<span class="card-title modal-trigger" data-target="open_modal" onclick="open_modal_item('${ruta}');">${titulo}</span>
+				          </a>
+				          <p>${descripcion}</p>
+				          <div class="card-footer">
+					        	<a href="#" class="tooltipped" data-position="top" data-tooltip="Comentarios: ${comentarios}">
+					        		<i class="material-icons">comment</i>
+					        	</a>
+					        	<a href="#" class="tooltipped" data-position="top" data-tooltip="Visitas: ${visitas}">
+					        		<i class="material-icons">group</i>
+					        	</a>
+					        </div>
+				        </div>
+				      </div>
+	    			</div>
+					`);
+				};
+				$('.tooltipped').tooltip();
+			}
+		}
+	})
+});
+
 
 /*=============================================
 VALIDANDO FORM DE ARTICULO
@@ -263,3 +342,16 @@ function add_post() {
 
 }
 
+/*=============================================
+MOSTRAR INFORMACION DEL ARTICULO
+=============================================*/
+function open_modal_item(value){
+	$.ajax({
+		url: 'inc/item.php',
+		type: 'POST',
+		data: 'value=' + value,
+		success: function (response){
+			$('.res_modal').html(response);
+		}
+	});
+}

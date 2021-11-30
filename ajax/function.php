@@ -65,3 +65,18 @@ function all_articles($limit){
 	return $stmt->get_result();
 	$stmt->close();
 }
+
+/*=============================================
+MOSTRAR INFORMACION DEL ARTICULOS
+=============================================*/
+function item_post($item){
+	global $conn;
+	$select = sprintf("SELECT * FROM ud_articles JOIN ud_users ON ud_users.id = ud_articles.ahutor WHERE url = %s", limpiar($item, 'text'));
+
+	$consult = mysqli_query($conn, $select);
+	$res_dates = mysqli_fetch_all($consult);
+	
+	return $res_dates;
+	
+	mysqli_free_result($consult);
+}
